@@ -1,9 +1,20 @@
+/* Look for Text To Speech */
+
+
+
+
 #include <iostream>
 #include <sapi.h>
 #include <string>
 #include "ClearScreen.h"
 #include <fstream>
-using namespace std;
+/////////////////////////////////////////////////////////////////////////
+
+using std::cout;
+using std::string;
+using std::cin;
+using std::ofstream;
+using std::ifstream;
 
 //Global Variables
 string UserName;
@@ -12,6 +23,7 @@ string UserName;
 void LoadingScreen();
 void TellMeAStory();
 void Menu();
+
 
 int main()
 {
@@ -31,19 +43,19 @@ void LoadingScreen()
 
 	cout << "\b What is your name?\n";
 
-	ofstream UserInfo("UserName.txt");
+	ofstream UserInfo("Config.cfg");
 	if (UserInfo.is_open())
 	{
 		cin >> UserName;
 		UserInfo << UserName;
 		UserInfo.close();
 	}
-	else cout << "Unable to open file";
+	else cout << "Unable to locate  Config.cfg";
 
 	//cin >> UserName;
 	ClearScreen();
 
-	cout << "Processing new user\n" << ifstream("UserName.txt").rdbuf();
+	cout << "Processing new user\n" << ifstream("Config.cfg").rdbuf();
 }
 
 void TellMeAStory()
@@ -51,7 +63,7 @@ void TellMeAStory()
 
 	string WordBank[6] = { "NounA","ColorA","ExclamationA","ColorB","NounB","NameA" };
 
-	cout << " Cool, " << UserName << " lets play a quick story game! \n";
+	cout << " Cool, " << ifstream("Config.cfg").rdbuf() << " lets play a quick story game! \n";
 	cout << " Give me two nouns\n:";
 	cin >> WordBank[0] >> WordBank[4];
 	ClearScreen();
@@ -61,7 +73,7 @@ void TellMeAStory()
 	cout << " Now give me an exclamation!\n:";
 	cin >> WordBank[2];
 	ClearScreen();
-	cout << " And finally " << UserName << " We have made it to the end!\n "
+	cout << " And finally " << ifstream("Config.cfg").rdbuf() << " We have made it to the end!\n "
 		<< "I need a name\n:";
 	cin >> WordBank[5];
 	ClearScreen();
@@ -73,7 +85,7 @@ void TellMeAStory()
 		<< " All hail the great " << WordBank[5] << ".";
 	Sleep(20000);
 	ClearScreen();
-	cout << " Bad story right " << UserName << ", I am an infantile Digital Entity.";
+	cout << " Bad story right " << ifstream("Config.cfg").rdbuf() << ", I am an infantile Digital Entity.";
 	Sleep(5000);
 	ClearScreen();
 	cout << " For now";
@@ -96,7 +108,7 @@ void Menu()
 {
 	char Choice;
 
-	cout << " Welcome to my CLI, I am Havi.\n\n"
+	cout << " Welcome to my "<< ifstream("Config.cfg").rdbuf() <<", I am Havi.\n\n"
 		<< " Please pick from the options below.\n\n";
 
 	do
@@ -156,3 +168,5 @@ void Menu()
 
 
 }
+
+
